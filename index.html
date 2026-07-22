@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Question for Mituu...</title>
+    <title>A Secret for Mituu...</title>
     <style>
         body {
             margin: 0;
@@ -12,9 +12,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            /* Base Background: A gentle, cute pink */
             background-color: #ffc0cb; 
-            /* Code-Generated Hearts & Dots */
             background-image: 
                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 30 C 60 10, 90 20, 90 45 C 90 70, 50 90, 50 90 C 50 90, 10 70, 10 45 C 10 20, 40 10, 50 30 Z' stroke='%23f38ba888' fill='none' stroke-width='1.5'/%3E%3C/svg%3E"), 
                 radial-gradient(#f38ba855 2px, transparent 2px);
@@ -24,30 +22,71 @@
             font-family: 'Courier New', Courier, monospace;
             overflow: hidden;
         }
+        
         .container {
             text-align: center;
             position: relative;
             width: 100%;
             height: 100%;
-            display: flex;
+            background: rgba(255, 255, 255, 0.85); 
+        }
+
+        .screen {
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: rgba(255, 255, 255, 0.9); 
+            width: 100%;
+            height: 100%;
+            animation: fadeIn 0.8s ease-in-out;
         }
+        
+        .screen.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         h1 {
             color: #e60073;
             font-size: 2rem;
             margin-bottom: 2rem;
             padding: 0 20px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            line-height: 1.4;
         }
+
+        .next-btn {
+            background-color: #ff99cc;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: 0.2s;
+            margin-top: 20px;
+        }
+        
+        .next-btn:hover {
+            background-color: #ff66b3;
+            transform: scale(1.05);
+        }
+
         .buttons {
             position: relative;
             width: 300px;
             height: 100px;
+            margin-top: 20px;
         }
-        button {
+        
+        .prop-btn {
             font-family: 'Courier New', Courier, monospace;
             font-size: 1.2rem;
             font-weight: bold;
@@ -56,23 +95,28 @@
             border-radius: 5px;
             cursor: pointer;
             transition: 0.1s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+        
         #yesBtn {
-            background-color: #a6e3a1; /* Terminal green */
+            background-color: #a6e3a1; 
             color: #1e1e2e;
             position: absolute;
             left: 20px;
         }
+        
         #yesBtn:hover {
             background-color: #94e2d5;
             transform: scale(1.1);
         }
+        
         #noBtn {
-            background-color: #f38ba8; /* Terminal red */
+            background-color: #f38ba8; 
             color: #1e1e2e;
             position: absolute;
             right: 20px;
         }
+
         #successMessage {
             display: none;
             color: #e60073;
@@ -80,10 +124,10 @@
             padding: 20px;
             line-height: 1.6;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            font-family: 'Arial', sans-serif; /* Making the final message slightly more readable */
+            font-family: 'Arial', sans-serif; 
             font-weight: bold;
         }
-        /* Cute Nickname Floating Messages */
+
         .cute-msg {
             position: absolute;
             font-size: 0.95rem;
@@ -104,35 +148,69 @@
 </head>
 <body>
 
-    <div class="container" id="mainContainer">
-        <!-- Floating Nickname Messages -->
-        <span class="cute-msg msg1">My kuchupuchu</span>
-        <span class="cute-msg msg2">My cutie pie</span>
-        <span class="cute-msg msg3">My rasmalai</span>
-        <span class="cute-msg msg4">My madam ji</span>
-        <span class="cute-msg msg5">Meri jaanuu</span>
-        <span class="cute-msg msg6">Merii lugai</span>
-        <span class="cute-msg msg7">Merii mommyyy</span>
-        <span class="cute-msg msg8">Meri babyy</span>
-
-        <!-- Proposal Question with her name -->
-        <h1>Will you be my girlfriend, Mituu? ❤️</h1>
+    <div class="container">
         
-        <div class="buttons" id="buttonContainer">
-            <button id="yesBtn" onclick="sayYes()"> YES </button>
-            <button id="noBtn" onmouseover="moveButton()"> NO </button>
+        <div id="screen1" class="screen active">
+            <h1>I'm feeling shy to tell 🙈</h1>
+            <button class="next-btn" onclick="nextScreen(2)">Tell me! ❤️</button>
         </div>
 
-        <!-- NEW CUTE SUCCESS MESSAGE -->
-        <div id="successMessage">
-            System Output: Perfect Match Found! 💖<br><br>
-            Mituu, you just made me the happiest person ever. <br>
-            I promise to always love you, annoy you, and treat you like my precious Rasmalai. 😘<br><br>
-            Take a screenshot and send it to me so I can celebrate! 🎉
+        <div id="screen2" class="screen">
+            <h1>I don't know how u'll react ... 🥺</h1>
+            <button class="next-btn" onclick="nextScreen(3)">I'll react well! 🥰</button>
         </div>
+
+        <div id="screen3" class="screen">
+            <h1>Pakka bta du ... 🫣</h1>
+            <button class="next-btn" onclick="nextScreen(4)">Haan pakka! 💕</button>
+        </div>
+
+        <div id="screen4" class="screen">
+            <h1>pakka pakka ??.... 🫣</h1>
+            <button class="next-btn" onclick="nextScreen(5)">Haaan baba! 💖</button>
+        </div>
+
+        <div id="screen5" class="screen">
+            <h1>Are u sure jaanu? 🥺❤️</h1>
+            <button class="next-btn" onclick="nextScreen(6)">100% Sure! Tell me! ✨</button>
+        </div>
+
+        <div id="screen6" class="screen">
+            <span class="cute-msg msg1">My kuchupuchu</span>
+            <span class="cute-msg msg2">My cutie pie</span>
+            <span class="cute-msg msg3">My rasmalai</span>
+            <span class="cute-msg msg4">My madam ji</span>
+            <span class="cute-msg msg5">Meri jaanuu</span>
+            <span class="cute-msg msg6">Merii lugai</span>
+            <span class="cute-msg msg7">Merii mommyyy</span>
+            <span class="cute-msg msg8">Meri babyy</span>
+
+            <h1>Will you be my girlfriend, Mituu? ❤️</h1>
+            
+            <div class="buttons" id="buttonContainer">
+                <button id="yesBtn" class="prop-btn" onclick="sayYes()">[ YES ]</button>
+                <button id="noBtn" class="prop-btn" onmouseover="moveButton()">[ NO ]</button>
+            </div>
+
+            <div id="successMessage">
+                System Output: Perfect Match Found! 💖<br><br>
+                Mituu, you just made me the happiest person ever. <br>
+                I promise to always love you, annoy you, and treat you like my precious Rasmalai. 😘<br><br>
+                Take a screenshot and send it to me so I can celebrate! 🎉
+            </div>
+        </div>
+
     </div>
 
     <script>
+        function nextScreen(screenNumber) {
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById('screen' + screenNumber).classList.add('active');
+        }
+
         function moveButton() {
             const noBtn = document.getElementById('noBtn');
             const maxX = window.innerWidth - noBtn.offsetWidth - 20;
@@ -146,15 +224,12 @@
         }
 
         function sayYes() {
-            document.querySelector('h1').style.display = 'none';
+            document.querySelector('#screen6 h1').style.display = 'none';
             document.getElementById('buttonContainer').style.display = 'none';
-            // Hide all nicknames
             document.querySelectorAll('.cute-msg').forEach(msg => msg.style.display = 'none');
-            // Show success message
             document.getElementById('successMessage').style.display = 'block';
         }
         
-        // Touch support for mobile phones
         document.getElementById('noBtn').addEventListener('touchstart', function(e) {
             e.preventDefault(); 
             moveButton();
